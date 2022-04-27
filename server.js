@@ -24,3 +24,7 @@ if (args.help || args.h) {
     console.log(help)
     process.exit(0)
 }
+
+const express = require('express')
+const app = express()
+const coin = require('./coin.js')
