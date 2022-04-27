@@ -34,3 +34,5 @@ const port = args.port || process.env.PORT || 3000
 const server = app.listen(port, () => {
     console.log('App listening on port %PORT%'.replace('%PORT%', port))
 });
+
+const db = require('./database.js')
