@@ -28,3 +28,9 @@ if (args.help || args.h) {
 const express = require('express')
 const app = express()
 const coin = require('./coin.js')
+
+args["port"]
+const port = args.port || process.env.PORT || 3000
+const server = app.listen(port, () => {
+    console.log('App listening on port %PORT%'.replace('%PORT%', port))
+});
