@@ -75,3 +75,8 @@ app.use((req, res, next) => {
     const info = stmt.run(logdata.remoteaddr, logdata.remoteuser, logdata.time, logdata.method, logdata.url, logdata.protocol, logdata.httpversion, logdata.status, logdata.referer, logdata.useragent)
     next()
 })
+
+app.get('/app/flip/', (req, res) => {
+    var flip = coin.coinFlip()
+    res.status(200).json({'flip': flip})
+})
