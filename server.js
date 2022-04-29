@@ -45,7 +45,7 @@ const fs = require('fs')
 if (args.debug == "true" || args.debug == true) {
     app.get('/app/log/access', (req, res) => {
         try {
-            const stmt = db.prepare('SELECT * FROM accesslogs').all()
+            const stmt = db.prepare('SELECT * FROM accesslog').all()
             res.status(200).json(stmt)
         } catch (err) {
             console.error(err)
@@ -75,7 +75,7 @@ app.use((req, res, next) => {
         useragent: req.headers['user-agent']
     }
 
-    const stmt = db.prepare(`INSERT INTO accesslogs (remoteaddr, remoteuser, time, method, url, protocol, httpversion, secure, status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`)
+    const stmt = db.prepare(`INSERT INTO accesslog (remoteaddr, remoteuser, time, method, url, protocol, httpversion, secure, status, referer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`)
     const info = stmt.run(logdata.remoteaddr, logdata.remoteuser, logdata.time, logdata.method, logdata.url, logdata.protocol, logdata.httpversion, logdata.status, logdata.referer, logdata.useragent)
     next()
 })
