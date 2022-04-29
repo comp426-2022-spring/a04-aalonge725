@@ -86,3 +86,7 @@ app.get('/app/flips/:number', (req, res) => {
     var summary = countFlips(flipResult)
     res.status(200).json({'raw': flipResult, 'summary': summary})
 })
+
+app.get('/app/flip/call/heads', (req, res) => {
+    res.status(200).json(coin.flipACoin('heads'))
+})
