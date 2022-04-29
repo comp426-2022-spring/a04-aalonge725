@@ -48,7 +48,7 @@ if (args.debug == "true" || args.debug == true) {
             const stmt = db.prepare('SELECT * FROM accesslog').all()
             res.status(200).json(stmt)
         } catch (e) {
-            console.error(e)
+            console.log(e)
         }
     })
     app.get('/app/error', (req, res) => {
