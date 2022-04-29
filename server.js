@@ -52,6 +52,7 @@ if (args.debug == "true" || args.debug == true) {
         }
     })
     app.get('/app/error', (req, res) => {
+        res.status(500).json(stmt)
         throw new Error("Error test successful.")
     })
 }
