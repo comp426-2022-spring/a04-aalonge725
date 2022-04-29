@@ -57,7 +57,7 @@ if (args.debug == "true" || args.debug == true) {
 }
 
 if (args.log != "false" && args.log != false) {
-    const logStream = fs.createWriteStream('accesslog', {flags: 'a'})
+    const logStream = fs.createWriteStream('access.log', {flags: 'a'})
     app.use(morgan('combined', {stream:logStream}))
 }
 
@@ -94,7 +94,7 @@ app.get('/app/flip/', (req, res) => {
 
 app.get('/app/flips/:number', (req, res) => {
     var flipResult = coin.coinFlips(req.params.number)
-    var summary = countFlips(flipResult)
+    var summary = coin.countFlips(flipResult)
     res.status(200).json({'raw': flipResult, 'summary': summary})
 })
 
