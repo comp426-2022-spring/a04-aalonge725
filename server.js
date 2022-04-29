@@ -30,6 +30,7 @@ const app = express()
 const coin = require('./coin.js')
 
 args["port"]
+args["debug"]
 const port = args.port || process.env.PORT || 3000
 const server = app.listen(port, () => {
     console.log('App listening on port %PORT%'.replace('%PORT%', port))
@@ -39,3 +40,14 @@ const db = require('./database.js')
 
 const morgan = require('morgan')
 const fs = require('fs')
+
+if (args.debug == "true" || args.debug == true) {
+    app.get("/app/log/access", (req, res) => {
+        try {
+            const stmt = db.prepare('SELECT * FROM accesslog').all()
+            res.status(200).json(stmt)
+        } catch (err) {
+            console.error(err)
+        }
+    })
+}
