@@ -46,6 +46,7 @@ if (args.debug == "true" || args.debug == true) {
     app.get('/app/log/access', (req, res) => {
         const stmt = db.prepare('SELECT * FROM accesslog').all()
         res.status(200).json(stmt)
+        console.log(0101)
     })
     app.get('/app/error', (req, res) => {
         throw new Error("Error test successful.")
