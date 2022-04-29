@@ -90,3 +90,7 @@ app.get('/app/flips/:number', (req, res) => {
 app.get('/app/flip/call/heads', (req, res) => {
     res.status(200).json(coin.flipACoin('heads'))
 })
+
+app.get('/app/flip/call/tails', (req, res) => {
+    res.status(200).json(coin.flipACoin('tails'))
+})
