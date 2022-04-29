@@ -45,7 +45,7 @@ const fs = require('fs')
 if (args.debug == "true" || args.debug == true) {
     app.get('/app/log/access', (req, res) => {
         try {
-            const stmt = db.prepare('SELECT * FROM accesslog').all()
+            const stmt = db.prepare('SELECT * FROM accesslogs').all()
             res.status(200).json(stmt)
         } catch (err) {
             console.error(err)
