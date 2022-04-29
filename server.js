@@ -28,10 +28,8 @@ if (args.help || args.h) {
 const express = require('express')
 const app = express()
 const coin = require('./coin.js')
+const fs = require('fs')
 
-args["port"]
-args["debug"]
-args["log"]
 const port = args.port || process.env.PORT || 5555
 const server = app.listen(port, () => {
     console.log('App listening on port %PORT%'.replace('%PORT%', port))
@@ -40,13 +38,14 @@ const server = app.listen(port, () => {
 const db = require('./database.js')
 
 const morgan = require('morgan')
-const fs = require('fs')
 
-if (args.debug == "true" || args.debug == true) {
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
+if (args.debug == true) {
     app.get('/app/log/access', (req, res) => {
         const stmt = db.prepare('SELECT * FROM accesslog').all()
         res.status(200).json(stmt)
-        console.log(0101)
     })
     app.get('/app/error', (req, res) => {
         throw new Error("Error test successful.")
@@ -54,8 +53,8 @@ if (args.debug == "true" || args.debug == true) {
 }
 
 if (args.log != "false" && args.log != false) {
-    const logStream = fs.createWriteStream('access.log', {flags: 'a'})
-    app.use(morgan('combined', {stream:logStream}))
+    const writeStream = fs.createWriteStream('access.log', {flags: 'a'})
+    app.use(morgan('combined', {stream: writeStream}))
 }
 
 app.use((req, res, next) => {
